@@ -7,7 +7,6 @@ beautifulsoup4==4.8.0
 bottle==0.12.17
 bottle-websocket==0.2.9
 cachelib==0.1
-canon-remote==0.0.1
 certifi==2019.6.16
 cffi==1.12.3
 chardet==3.0.4
@@ -49,7 +48,6 @@ MarkupSafe==1.1.1
 matplotlib==3.1.1
 more-itertools==7.2.0
 mysqlclient==1.4.6
-nazca==0.5.3
 networkx==2.3
 numba==0.46.0
 numpy==1.17.0
@@ -95,7 +93,6 @@ stickytape==0.1.14
 TextEncoder==0.1.6
 tk==0.1.0
 treepoem==3.1.0
-UNKNOWN==0.0.0
 urllib3==1.25.3
 wcwidth==0.1.7
 Werkzeug==0.16.0
