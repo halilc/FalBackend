@@ -3,32 +3,37 @@
 
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
-app = Flask(__name__)
 import pymysql
+from Backend.Flask.db import mysql_connect
 
-@app.route('/sign', methods=['POST'])
+app = Flask(__name__)
 
-def sign():
-    # read the posted values from the UI
-    # req_data = request.get_json()
-    # name = req_data['name']
-    # return name
-    #if request.method == 'POST':
-        #print(request.form.get('name'))
-        #return jsonify(request.form.get('name'))
-    # data = jsonify(request.data)
-    # print(data)
-    # data = json.loads(str(request.data))
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='fal')
 
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM `members`")
-    for row in cur:
-        print(row)
+@app.route('/register/', methods=['POST'])
+def register():
     data = request.data.decode('utf8')
-    print(data)
+    # print(data)
     data = json.loads(data)
-    print(data['user_id'])
+    # print(data['username'])
+
+
+    db_instance = mysql_connect('localhost',3306,'root','','fal')
+    print(db_instance.getUsers(data['username']))
+
+
+    #
+    # conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='fal')
+    # cur = conn.cursor()
+    # cur.execute("SELECT * FROM `members`")
+    # #
+    # # print(cur)
+    # for row in cur:
+    #     print(row)
+    # INSERT
+    # INTO
+    # `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`)
+    # VALUES(NULL, 'deneme3', 'deneme3@gmail.com', '123456', '0', '2019-12-06 00:00:00', '2019-12-06 00:00:00');
+
 
     return request.data
 
