@@ -33,15 +33,21 @@ class mysql_connect():
             return True
         else: return False
 
-    def createUser(self,username,email,password):
-        query = "SELECT COUNT(*) FROM `members` WHERE `members`.`email` = '{}'".format(str(email))
-        print(query)
-        self.cur.execute(query)
-        temp = ''
-        for row in self.cur:
-            temp = str(row)
-            break
-        if '1' in temp:
-            return True
-        else: return False
+    def createUser(self,username,email,password,create_time):
+        query = "INSERT INTO `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`) VALUES(NULL, '{}', '{}', '{}', '0', '{}', NULL )".format(str(username),str(email),str(password),str(create_time))
+        # INSERT
+        # INTO
+        # `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`)
+        # VALUES(NULL, 'deneme3', 'deneme3@gmail.com', '123456', '0', '2019-12-06 00:00:00', '2019-12-06 00:00:00');
+
+        # print(query)
+        return self.cur.execute(query)
+
+        # temp = ''
+        # for row in self.cur:
+        #     temp = str(row)
+        #     break
+        # if '1' in temp:
+        #     return True
+        # else: return False
 
