@@ -1,5 +1,5 @@
 import pymysql
-
+import secrets
 # conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='fal')
 
 class mysql_connect():
@@ -35,19 +35,16 @@ class mysql_connect():
 
     def createUser(self,username,email,password,create_time):
         query = "INSERT INTO `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`) VALUES(NULL, '{}', '{}', '{}', '0', '{}', NULL )".format(str(username),str(email),str(password),str(create_time))
-        # INSERT
-        # INTO
-        # `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`)
-        # VALUES(NULL, 'deneme3', 'deneme3@gmail.com', '123456', '0', '2019-12-06 00:00:00', '2019-12-06 00:00:00');
-
-        # print(query)
         return self.cur.execute(query)
 
-        # temp = ''
-        # for row in self.cur:
-        #     temp = str(row)
-        #     break
-        # if '1' in temp:
-        #     return True
-        # else: return False
+    def createToken(self,username,created_at):
 
+        query = "SELECT members.id FROM `members` WHERE members.username =  '{}'".format(str(username))
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        token = secrets.token_urlsafe(20)
+        query = "INSERT INTO `member_sessions`(`id`, `member_id`, `user_agent`, `ip`, `access_token`, `created_at`, `updated_at`) VALUES(NULL, '{}', NULL, NULL,'{}','{}', NULL)".format(int(result[0]), str(token), str(created_at))
+        self.cur.execute(query)
+        return token
+
+        pass
