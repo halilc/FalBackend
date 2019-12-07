@@ -37,9 +37,9 @@ class mysql_connect():
         query = "INSERT INTO `members`(`id`, `username`, `email`, `password`, `banned`, `created_at`, `updated_at`) VALUES(NULL, '{}', '{}', '{}', '0', '{}', NULL )".format(str(username),str(email),str(password),str(create_time))
         return self.cur.execute(query)
 
-    def createToken(self,username,created_at):
+    def createToken(self,email,created_at):
 
-        query = "SELECT members.id FROM `members` WHERE members.username =  '{}'".format(str(username))
+        query = "SELECT members.id FROM `members` WHERE members.email =  '{}'".format(str(email))
         self.cur.execute(query)
         result = self.cur.fetchone()
         token = secrets.token_urlsafe(20)
@@ -47,4 +47,25 @@ class mysql_connect():
         self.cur.execute(query)
         return token
 
-        pass
+    def LoginUser(self,email,password):
+
+        query = "SELECT COUNT(*) FROM `members` WHERE members.email =  '{}' AND members.password =  '{}'".format(str(email),str(password))
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        return result[0]
+
+
+    def LogoutUser(self,username):
+        # print(username)
+        query = "SELECT members.id FROM `members` WHERE members.username =  '{}'".format(str(username))
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        print("------")
+        print(result[0])
+        query2 = "DELETE FROM `member_sessions` WHERE member_sessions.member_id =  '{}'".format(str(result[0]))
+        self.cur.execute(query2)
+        # result2 = self.cur2.fetchone()
+        # print(result2[0])
+        # for item in self.cur:
+        #     print(item)
+        return "Logout"

@@ -17,9 +17,18 @@ app = Flask(__name__)
 hata_dict = {"Hata": "Kullanıcı adı önceden kayıtlı Başka bir kullanıcı adı seçiniz!"}
 hata_dict2 = {"Hata": "Email Önceden kayıtlı"}
 hata_dict3 = {"Hata": "Tekrar Deneyiniz !"}
-onay_dict = {"Onay": "Kayıt Başarılı  !","token": ""}
 hata_dict4 = {"Hata": "Lütfen Tüm alanları doldurunuz !"}
 hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !"}
+hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !"}
+hata_dict7 = {"Hata": "Çıkış Başarısız !"}
+
+
+
+onay_dict = {"Onay": "Kayıt Başarılı  !","token": ""}
+onay_dict2 = {"Onay": "Giriş Başarılı !"}
+onay_dict3 = {"Onay": "Giriş Başarılı  !","token": ""}
+onay_dict4 = {"Onay": "Çıkış Başarılı !"}
+
 db_instance = mysql_connect('localhost',3306,'root','','fal')
 @app.route('/register/', methods=['POST'])
 def register():
@@ -42,12 +51,34 @@ def register():
         return hata_dict2
     else:
         if db_instance.createUser(username, email, password, create_time) == 1:
-            token = db_instance.createToken(username,create_time)
+            token = db_instance.createToken(email,create_time)
             print(token)
             onay_dict['token'] = str(token)
             return onay_dict
         else: return  hata_dict3
 
+
 @app.route('/login/', methods=["POST"])
 def login():
-    return request
+    data = request.data.decode('utf8')
+    data = json.loads(data)
+    email = data['email']
+    password = data['password']
+    result = db_instance.LoginUser(email,password)
+    if result == 1:
+        token = db_instance.createToken(email, str(current_time))
+        onay_dict3['token'] = str(token)
+        return onay_dict3
+    else: return hata_dict6
+
+@app.route('/logout/', methods=["POST"])
+def logout():
+    data = request.data.decode('utf8')
+    data = json.loads(data)
+    username = data['username']
+    try:
+        result = db_instance.LogoutUser(username)
+        return  onay_dict4
+    except:
+        return hata_dict7
+    # print(result)
