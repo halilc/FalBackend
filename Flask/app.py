@@ -45,7 +45,7 @@ def register():
         return hata_dict4
     if not "@" in email:
         return hata_dict5
-    if db_instance.getUsers(username):
+    if db_instance.getUser(username):
         return hata_dict
     elif db_instance.getUsersFromMail(email):
         return hata_dict2

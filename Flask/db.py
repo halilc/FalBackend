@@ -9,7 +9,7 @@ class mysql_connect():
         conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db)
         self.cur = conn.cursor()
 
-    def getUsers(self,username):
+    def getUser(self,username):
         query = "SELECT COUNT(*) FROM `members` WHERE `members`.`username` = '{}'".format(str(username))
         # print(query)
         self.cur.execute(query)
