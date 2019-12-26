@@ -10,18 +10,18 @@ from db import mysql_connect
 
 current_time = datetime.now()
 app = Flask(__name__)
-hata_dict = {"Hata": "Kullanıcı adı önceden kayıtlı Başka bir kullanıcı adı seçiniz!"}
-hata_dict2 = {"Hata": "Email Önceden kayıtlı"}
-hata_dict3 = {"Hata": "Tekrar Deneyiniz !"}
-hata_dict4 = {"Hata": "Lütfen Tüm alanları doldurunuz !"}
-hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !"}
-hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !"}
-hata_dict7 = {"Hata": "Çıkış Başarısız !"}
+hata_dict = {"Hata": "Kullanıcı adı önceden kayıtlı Başka bir kullanıcı adı seçiniz!", "code" : "e1"}
+hata_dict2 = {"Hata": "Email Önceden kayıtlı", "code" : "e2"}
+hata_dict3 = {"Hata": "Tekrar Deneyiniz !", "code" : "e3"}
+hata_dict4 = {"Hata": "Lütfen Tüm alanları doldurunuz !", "code" : "e4"}
+hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !" , "code" : "e5"}
+hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !" , "code": "e6"}
+hata_dict7 = {"Hata": "Çıkış Başarısız !" ,"code" : "e7"}
 
-onay_dict = {"Onay": "Kayıt Başarılı  !","token": ""}
+onay_dict = {"Onay": "Kayıt Başarılı  !","token": "" ,"code" : "e8"}
 onay_dict2 = {"Onay": "Giriş Başarılı !"}
-onay_dict3 = {"Onay": "Giriş Başarılı  !","token": ""}
-onay_dict4 = {"Onay": "Çıkış Başarılı !"}
+onay_dict3 = {"Onay": "Giriş Başarılı  !","token": "" ,"code": "e9"}
+onay_dict4 = {"Onay": "Çıkış Başarılı !" , "code": "e10"}
 
 db_instance = mysql_connect('89.19.30.126',3306,'u8279158_fal','CAneren93049304','u8279158_fal')
 
