@@ -12,22 +12,22 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 current_time = datetime.now()
 app = Flask(__name__)
-hata_dict = {"Hata": "Kullanıcı adı önceden kayıtlı Başka bir kullanıcı adı seçiniz!"}
-hata_dict2 = {"Hata": "Email Önceden kayıtlı"}
-hata_dict3 = {"Hata": "Tekrar Deneyiniz !"}
-hata_dict4 = {"Hata": "Lütfen Tüm alanları doldurunuz !"}
-hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !"}
-hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !"}
-hata_dict7 = {"Hata": "Çıkış Başarısız !"}
-hata_dict8 = {"Hata": "Fal Gönderilirken hata oluştu !"}
+hata_dict = {"Hata": "Kullanıcı adı önceden kayıtlı Başka bir kullanıcı adı seçiniz!", "code" : "e1"}
+hata_dict2 = {"Hata": "Email Önceden kayıtlı", "code": "e2"}
+hata_dict3 = {"Hata": "Tekrar Deneyiniz !", "code": "e3"}
+hata_dict4 = {"Hata": "Lütfen Tüm alanları doldurunuz !", "code" : "e4"}
+hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !" , "code": "e5"}
+hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !", "code" : "e6"}
+hata_dict7 = {"Hata": "Çıkış Başarısız !" , "code" : "e7"}
+hata_dict8 = {"Hata": "Fal Gönderilirken hata oluştu !", "code" : "e8"}
 
 
-onay_dict = {"Onay": "Kayıt Başarılı  !","token": ""}
+onay_dict = {"Onay": "Kayıt Başarılı  !","token": "", "code" : "e9"}
 onay_dict2 = {"Onay": "Giriş Başarılı !"}
-onay_dict3 = {"Onay": "Giriş Başarılı  !","token": ""}
+onay_dict3 = {"Onay": "Giriş Başarılı  !","token": " ",  "code": "e10"}
 onay_dict4 = {"Onay": "Çıkış Başarılı !"}
 
-onay_dict5 = {"Onay": "Fal Gönderildi  !"}
+onay_dict5 = {"Onay": "Fal Gönderildi  !", "code" : "e11"}
 
 
 
@@ -134,13 +134,16 @@ def sendfortune():
         return hata_dict8
     return onay_dict5
 
-@app.route('/getProfile/', methods=["POST"])
+@app.route('/getprofile/', methods=["POST"])
 def getProfile():
     db_instance = connection_db().db_instance
 
     data = request.data.decode('utf8')
     data = json.loads(data)
-    user = data['username']
+    id = data['id']
+    result = db_instance.getProfile(id)
+
+    return str(result)
 
 def checkWaiting():
     print("Bekleyen")

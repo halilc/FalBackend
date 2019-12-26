@@ -32,6 +32,14 @@ class mysql_connect():
         else:
             return False
 
+    def getProfile(self,id):
+        query = "SELECT * FROM `members` WHERE `members`.`id` = '{}'".format(str(id))
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result[0]
+
+
+
     def getUsersFromMail(self,email):
         query = "SELECT COUNT(*) FROM `members` WHERE `members`.`email` = '{}'".format(str(email))
         print(query)
