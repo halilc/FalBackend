@@ -29,7 +29,8 @@ class mysql_connect():
             break
         if '1' in temp:
             return True
-        else: return False
+        else:
+            return False
 
     def getUsersFromMail(self,email):
         query = "SELECT COUNT(*) FROM `members` WHERE `members`.`email` = '{}'".format(str(email))
@@ -108,25 +109,29 @@ class mysql_connect():
             result = self.cur.fetchall()
             for item in result:
                 self.waiting_users.append(item[0])
+            query = "DELETE  FROM `waiting_fortune`"
+            print(self.waiting_users)
+            self.cur.execute(query)
             return result
         except Exception as e:
             print(e)
             return 0
 
-    def sendFortune(self):
+    def sendWatingFortune(self):
         self.getWaitings()
+        print("SENDİNGG...")
+        if len(self.waiting_users) == 0:
+            return 0
         try:
             query = "SELECT * FROM `fortunes` ORDER BY `fortunes`.`fal_id` DESC LIMIT 1"
             self.cur.execute(query)
             result = self.cur.fetchone()
-            for user in self.getWaitings():
+
+            for user in self.waiting_users:
                 temp = random.randint(1,result[0])
-                print(user[0])
-                query = "INSERT INTO `sent_fortune` (`sent_id`, `member_id`, `fortune_id`) VALUES (NULL, '{}', '{}')".format(str(user[0]),str(temp))
+                print(user)
+                query = "INSERT INTO `sent_fortune` (`sent_id`, `member_id`, `fortune_id`) VALUES (NULL, '{}', '{}')".format(str(user),str(temp))
                 self.cur.execute(query)
-
-            # print(random.randint(1,result[0]))
-
             return result[0]
         except Exception as e:
             print(e)

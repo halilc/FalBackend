@@ -80,8 +80,13 @@ def login():
     db_instance = connection_db().db_instance
 
     data = request.data.decode('utf8')
+    print(data)
     data = json.loads(data)
+
+    print("---------------")
     email = data['email']
+
+    print(email)
     password = data['password']
     try:
         result = db_instance.LoginUser(email,password)
@@ -129,16 +134,22 @@ def sendfortune():
         return hata_dict8
     return onay_dict5
 
+@app.route('/getProfile/', methods=["POST"])
+def getProfile():
+    db_instance = connection_db().db_instance
+
+    data = request.data.decode('utf8')
+    data = json.loads(data)
+    user = data['username']
 
 def checkWaiting():
     print("Bekleyen")
     db_instance = connection_db().db_instance
-    db_instance.sendFortune()
+    db_instance.sendWatingFortune()
     # print(db_instance.sendFortune())
     # print(db_instance.getWaitings())
-def test():
-    print("q")
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=test(), trigger="interval", seconds=1)
+scheduler.add_job(func=checkWaiting, trigger="interval" , seconds=60)
 scheduler.start()
+
