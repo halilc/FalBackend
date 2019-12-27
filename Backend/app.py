@@ -25,7 +25,7 @@ hata_dict8 = {"Hata": "Fal Gönderilirken hata oluştu !", "code" : "e8"}
 onay_dict = {"Onay": "Kayıt Başarılı  !","token": "", "code" : "e9"}
 onay_dict2 = {"Onay": "Giriş Başarılı !"}
 onay_dict3 = {"Onay": "Giriş Başarılı  !","token": " ",  "code": "e10"}
-onay_dict4 = {"Onay": "Çıkış Başarılı !"}
+onay_dict4 = {"Onay": "Çıkış Başarılı !",  "code": "e12"}
 
 onay_dict5 = {"Onay": "Fal Gönderildi  !", "code" : "e11"}
 

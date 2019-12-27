@@ -36,7 +36,10 @@ class mysql_connect():
         query = "SELECT * FROM `members` WHERE `members`.`id` = '{}'".format(str(id))
         self.cur.execute(query)
         result = self.cur.fetchall()
-        return result[0]
+        temp = list(result[0])
+        temp.remove(temp[3])
+        temp = tuple(temp)
+        return temp
 
 
 
