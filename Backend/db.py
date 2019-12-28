@@ -41,8 +41,6 @@ class mysql_connect():
         temp = tuple(temp)
         return temp
 
-
-
     def getUsersFromMail(self,email):
         query = "SELECT COUNT(*) FROM `members` WHERE `members`.`email` = '{}'".format(str(email))
         print(query)
@@ -68,7 +66,11 @@ class mysql_connect():
         query = "INSERT INTO `member_sessions`(`id`, `member_id`, `user_agent`, `ip`, `access_token`, `created_at`, `updated_at`) VALUES(NULL, '{}', NULL, NULL,'{}','{}', NULL)".format(int(result[0]), str(token), str(created_at))
         self.cur.execute(query)
         return token
-
+    def checkToken(self,token):
+        query = "SELECT `member_id` FROM `member_sessions` WHERE member_sessions.access_token =  '{}'".format(str(token))
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        return result[0]
     def LoginUser(self,email,password):
 
         query = "SELECT COUNT(*) FROM `members` WHERE members.email =  '{}' AND members.password =  '{}'".format(str(email),str(password))

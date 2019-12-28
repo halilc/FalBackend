@@ -20,6 +20,7 @@ hata_dict5 = {"Hata": "Lüften geçerli bir email giriniz !" , "code": "e5"}
 hata_dict6 = {"Hata": "Giriş Başarısız . Tekrar Deneyiniz !", "code" : "e6"}
 hata_dict7 = {"Hata": "Çıkış Başarısız !" , "code" : "e7"}
 hata_dict8 = {"Hata": "Fal Gönderilirken hata oluştu !", "code" : "e8"}
+hata_dict9 = {"Hata": "Token Bulunamadı !", "code" : "e13"}
 
 
 onay_dict = {"Onay": "Kayıt Başarılı  !","token": "", "code" : "e9"}
@@ -28,6 +29,7 @@ onay_dict3 = {"Onay": "Giriş Başarılı  !","token": " ",  "code": "e10"}
 onay_dict4 = {"Onay": "Çıkış Başarılı !",  "code": "e12"}
 
 onay_dict5 = {"Onay": "Fal Gönderildi  !", "code" : "e11"}
+onay_dict6 = {"Onay": "Giriş Başarılı  !", "code" : "e14", "id" : ""}
 
 
 
@@ -100,6 +102,20 @@ def login():
         return hata_dict6
 
 
+@app.route('/checkToken/', methods=["POST"])
+def checkToken():
+    data = request.data.decode('utf8')
+    data = json.loads(data)
+    token = data['token']
+    try:
+        db_instance = connection_db().db_instance
+        result = db_instance.checkToken(token)
+        onay_dict6['id'] = str(result)
+
+        return onay_dict6
+    except:
+        return hata_dict9
+
 @app.route('/logout/', methods=["POST"])
 def logout():
     data = request.data.decode('utf8')
@@ -152,7 +168,7 @@ def checkWaiting():
     # print(db_instance.sendFortune())
     # print(db_instance.getWaitings())
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=checkWaiting, trigger="interval" , seconds=60)
-scheduler.start()
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(func=checkWaiting, trigger="interval" , seconds=60)
+# scheduler.start()
 
