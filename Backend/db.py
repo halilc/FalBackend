@@ -77,8 +77,6 @@ class mysql_connect():
         self.cur.execute(query)
         result = self.cur.fetchone()
         return result[0]
-
-
     def LogoutUser(self,username):
         # print(username)
         query = "SELECT members.id FROM `members` WHERE members.username =  '{}'".format(str(username))
