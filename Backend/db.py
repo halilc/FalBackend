@@ -9,7 +9,7 @@ class mysql_connect():
         self.cur = conn.cursor()
 
     # def connect(self):
-    #     conn = pymysql.connect('89.19.30.126', 3306, 'u8279158_fal', 'CAneren93049304', 'u8279158_fal')
+    #     conn = pymysql.connect('86', 3306, 'uktk', 'krkfkf', 'u')
     #     self.cur = conn.cursor()
 
     def checkDB(self):
