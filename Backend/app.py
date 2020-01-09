@@ -33,11 +33,11 @@ onay_dict6 = {"Onay": "Giriş Başarılı  !", "code" : "e14", "id" : ""}
 
 
 
-# db_instance = mysql_connect('89.19.30.126',3306,'u8279158_fal','CAneren93049304','u8279158_fal')
+# db_instance = mysql_connect('89.1126',3306,'u8','*******','****')
 
 class connection_db():
     def __init__(self):
-        self.db_instance = mysql_connect('89.19.30.126', 3306, 'u8279158_fal', 'u8279158_fal', 'CAneren93049304')
+        self.db_instance = mysql_connect('89126', 3306, 'u8al', '*******', '*******')
 
 
 
@@ -132,7 +132,7 @@ def logout():
 @app.route('/sendfortune/', methods=["POST"])
 def sendfortune():
     # print("################")
-    # db_instance = mysql_connect('89.19.30.126', 3306, 'u8279158_fal', 'u8279158_fal', 'CAneren93049304')
+    # db_instance = mysql_connect('8926', 3306, 'u8l', 'u8al', '74+_+_')
     db_instance = connection_db().db_instance
 
     data = request.data.decode('utf8')
